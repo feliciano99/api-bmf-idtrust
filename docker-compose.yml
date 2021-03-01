@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_DRIVER=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/idtrust
+      - SPRING_DATASOURCE_USERNAME=idtrust-user
+      - SPRING_DATASOURCE_PASSWORD=idtrust-password
+    ports:
+    - 8080:8080
+
+  db:
+    image: 'postgres:13.1-alpine'
+    environment:
+      - POSTGRES_DB=idtrust
+      - POSTGRES_USER=idtrust-user
+      - POSTGRES_PASSWORD=idtrust-password
