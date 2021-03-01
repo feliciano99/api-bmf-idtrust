@@ -1,80 +1,59 @@
-# BM&F Crops Price API
+# BM&F API
 
-Este projeto tem como finalidade buscar o preço de uma cultura na BM&F em uma data específica.
+O objetivo desse projeto é buscar o preço de uma determinada cultura na BM&F em uma data específica.
 
-**ATENÇÃO:** dado que para calcular por Kg o valor de cada cultura, eu precisaria entrar em cada cultura no site 
-da Quandl e pegar o peso da saca, eu preferi não fazer isso, e retornei apenas o valor da cultura calculado pela API da
-Quandl
+# Dependências
 
-## Dependências
+* Maven
+* JDK 8
+* Docker
 
-- Maven
-- JDK 8
-- Docker
-- Docker Compose
+# Arquitetura
 
-## Arquitetura
-
-O projeto foi feito em Java na versão 8, utilizando Spring como framework. Foram criados testes unitários e testes de
-integração para assegurar a confiabilidade no que está sendo desenvolvido. Além disso criei um `Dockerfile` e um
-`docker-compose.yml` para subir a aplicação sem a necessidade do `JDK` ou do `Maven`. Mas atenção, eu não automatizei
-a chamada aos testes dentro do Docker, durante a construção da imagem docker os testes NÃO SÃO executados. Para executar
-os testes é necessário ter o `Maven` e o `JDK` instalados.
-
-Para tratar o versionamento da camada de persistência, adicionei o FlyWay que utiliza o pattern de `migrations` que são
-aplicadas uma vez durante o start da aplicação. Assim, utilizei o banco `HSQLDB` como repositório de testes, então todos
-os testes de integração rodam utilizando ele, e dentro do `docker-compose.yml` configurei um banco `PostgreSQL` para
-rodar em modo de produção.
+O projeto foi feito utilizando a versão 8 do Java, com o framework Spring. Utilizei o Docker para facilitar os testes.
 
 ## Execução
 
-- `docker-compose up`: sobe a aplicação dentro do Docker em modo de produção
-- `mvn test`: roda todos os testes da aplicação
+É necssário ter o Docker instalado na máquina para poder rodar a aplicação localmente.
 
-## Acessando a aplicação
+Subir aplicação e BD: `docker-compose up`
+Rodar os testes: `mvn test`
 
-Depois de executar a aplicação, você poderá testar a API chamando
-`http://localhost:8080/v1/crops/{CÓDIGO-DA-CULTURA}/price?date={DATA-DESEJADA}`
 
-Perceba que os parâmetros `{CÓDIGO-DA-CULTURA}` e `{DATA-DESEJADA}` devem ser substituídos pelos filtros desejados.
-Assim sendo temos o exemplo: http://localhost:8080/v1/crops/SOYBEAN/price?date=2021-02-17 que busca os dados da cultura
-de Soja na data 17/02/2021 (perceba que o formato da data na URL deve ser sempre YYYY-MM-DD). Aqui está o retorno dessa
-chamada:
+## Testando a API
 
+Após subir a aplicação e BD no Docker, o teste deverá seguir a URL em exemplo abaixo:
+
+`http://localhost:8080/v1/crops/{CÓDIGO-CULTURA}/price?date={DATA}`
+O retorno será no formatado JSON.
+
+Alguns exemplos de pesquisas: 
+
+http://localhost:8080/v1/crops/COTTON/price?date=2021-02-26
 ```json
 {
   "data": {
-    "price": 157.86
+    "price": 511.26
   }
 }
 ```
 
-## Exemplos de Retorno da API
+http://localhost:8080/v1/crops/PORK/price?date=2021-02-26
+```json
+{
+  "data": {
+    "price": 11.68
+  }
+}
+```
 
-- http://localhost:8080/v1/crops/SOYBEAN/price?date=2021-02-17
-  ```json
-  {
-    "data": {
-      "price": 157.86
-    }
+http://localhost:8080/v1/crops/SOYBEAN/price?date=2021-02-26
+```json
+{
+  "data": {
+    "price": 162.26
   }
-  ```
+}
+```
 
-- http://localhost:8080/v1/crops/CORN/price?date=2021-02-17
-  ```json
-  {
-    "data": {
-      "price": 83.21
-    }
-  }
-  ```
-  
-- http://localhost:8080/v1/crops/CORN/price?date=2021-02-13 (sábado, domingo ou feriado a b3 não abre)
-  ```json
-  {
-    "metadata": {
-      "status": "BAD_GATEWAY",
-      "message": "Erro ao tentar desserializar a resposta da API Quandl"
-    }
-  }
-  ```
+Obs.: Finais de semana e feriados nacionais e na cidade de SP a B3 (Bolsa brasileira) não funciona, portanto não é possível obter resultado nesses dias.
