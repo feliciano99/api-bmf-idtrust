@@ -6,6 +6,6 @@ import com.idrust.bmfapi.exceptions.EconomiaAPIException;
 
 public interface EconomiaService {
 
-    BigDecimal getCurrentUSDQuotationInReais() throws EconomiaAPIException;
+	BigDecimal getCurrentUSDQuotationInReais() throws EconomiaAPIException;
 
 }
