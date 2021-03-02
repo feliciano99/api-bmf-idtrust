@@ -10,7 +10,7 @@ import com.idrust.bmfapi.dtos.EconomiaDTO;
 import com.idrust.bmfapi.exceptions.EconomiaAPIException;
 import com.idrust.bmfapi.properties.EconomiaAPIProperties;
 import com.idrust.bmfapi.services.EconomiaService;
-import com.idrust.bmfapi.services.impl.EconomiaServiceImpl;
+import com.idrust.bmfapi.services.imp.EconomiaServiceImp;
 
 import java.math.BigDecimal;
 
@@ -32,7 +32,7 @@ public class EconomiaServiceTest {
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
-        economiaService = new EconomiaServiceImpl(economiaAPIProperties, restTemplate);
+        economiaService = new EconomiaServiceImp(economiaAPIProperties, restTemplate);
     }
 
     @Test

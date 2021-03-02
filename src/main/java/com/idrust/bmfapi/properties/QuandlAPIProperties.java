@@ -12,24 +12,10 @@ public class QuandlAPIProperties {
 
     private final String url;
 
-    /**
-     * @param url O template de URL com o campo de CULTURA e DATA
-     */
     public QuandlAPIProperties(String url) {
         this.url = url;
     }
 
-    /**
-     * Gera a URL, com a cultura e a data informadas, para a API de cotacões.
-     * No caso, o template para a URL é inserido pelo Spring
-     * no construtor da classe e dessa forma podemos simplesmente
-     * alterar as variáveis do template para gerar uma URL
-     * coesa de acesso à API.
-     *
-     * @param cropCode    A cultura inserida na URL
-     * @param date      A data em que se deseja gerar a URL para o preco da cultura
-     * @return  A URL gerada para a API de cotacão, com âmbos os parâmetros
-     */
     public String getUrlFor(String cropCode, String date) {
         if (cropCode == null || cropCode.trim().isEmpty()) {
             throw new IllegalArgumentException("O argumento {cropCode} é obrigatorio para gerar a URL da API.");

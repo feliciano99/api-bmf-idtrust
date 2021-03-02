@@ -10,36 +10,36 @@ import java.math.RoundingMode;
 @Table(name = "crops_quotations")
 public class CropPrice extends AbstractEntity {
 
-    @Column(name = "code", nullable = false, updatable = false)
-    private String code;
+	@Column(name = "price", nullable = false, updatable = false)
+	private BigDecimal price;
 
-    @Column(name = "price", nullable = false, updatable = false)
-    private BigDecimal price;
+	@Column(name = "code", nullable = false, updatable = false)
+	private String code;
 
-    @Column(name = "date", nullable = false, updatable = false)
-    private String date;
+	@Column(name = "date", nullable = false, updatable = false)
+	private String date;
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price.setScale(2, RoundingMode.HALF_UP);
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price.setScale(2, RoundingMode.HALF_UP);
+	}
 
-    public String getDate() {
-        return date;
-    }
+	public String getDate() {
+		return date;
+	}
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+	public void setDate(String date) {
+		this.date = date;
+	}
 }

@@ -13,7 +13,7 @@ import com.idrust.bmfapi.repositories.CropPriceRepository;
 import com.idrust.bmfapi.services.CropService;
 import com.idrust.bmfapi.services.EconomiaService;
 import com.idrust.bmfapi.services.QuandlService;
-import com.idrust.bmfapi.services.impl.CropServiceImpl;
+import com.idrust.bmfapi.services.imp.CropServiceImp;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -38,7 +38,7 @@ public class CropServiceTest {
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
-        cropService = new CropServiceImpl(economiaService, quandlService, cropPriceRepository);
+        cropService = new CropServiceImp(economiaService, quandlService, cropPriceRepository);
     }
 
     @Test

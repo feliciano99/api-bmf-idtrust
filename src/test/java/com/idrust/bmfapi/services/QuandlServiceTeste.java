@@ -10,7 +10,7 @@ import com.idrust.bmfapi.dtos.QuandlCropDTO;
 import com.idrust.bmfapi.exceptions.QuandlAPIException;
 import com.idrust.bmfapi.properties.QuandlAPIProperties;
 import com.idrust.bmfapi.services.QuandlService;
-import com.idrust.bmfapi.services.impl.QuandlServiceImpl;
+import com.idrust.bmfapi.services.imp.QuandlServiceImp;
 
 import java.math.BigDecimal;
 
@@ -36,7 +36,7 @@ public class QuandlServiceTeste {
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        quandlService = new QuandlServiceImpl(restTemplate, quandlAPIProperties);
+        quandlService = new QuandlServiceImp(restTemplate, quandlAPIProperties);
     }
 
     @Test
